@@ -16,6 +16,9 @@ def get_gps(image_path):
             return exif['GPSInfo']
     return None
 
+def get_map_gps_info(gps_info):
+    return (gps_info['GPSLatitude'][0][0]/gps_info['GPSLatitude'][0][1], gps_info['GPSLongitude'][0][0]/gps_info['GPSLongitude'][0][1])
+
 def get_formatted_gps_info(gps_info):
     latitude = gps_info['GPSLatitude']
     latitude_ref = gps_info['GPSLatitudeRef']
