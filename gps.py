@@ -1,21 +1,18 @@
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 
-def get_gps(image_path):
-    exif = Image.open(image_path)._getexif()
+def get_gps(exif):
+    for key, value in exif.items():
+        name = TAGS.get(key, key)
+        exif[name] = exif.pop(key)
 
-    if exif:
-        for key, value in exif.items():
-            name = TAGS.get(key, key)
-            exif[name] = exif.pop(key)
-
-        if 'GPSInfo' in exif:
-            for key in exif['GPSInfo'].keys():
-                name = GPSTAGS.get(key,key)
-                exif['GPSInfo'][name] = exif['GPSInfo'].pop(key)
-            return exif['GPSInfo']
+    if 'GPSInfo' in exif:
+        for key in exif['GPSInfo'].keys():
+            name = GPSTAGS.get(key,key)
+            exif['GPSInfo'][name] = exif['GPSInfo'].pop(key)
+        return exif['GPSInfo']
     return None
-
+    
 def get_map_gps_info(gps_info):
     return (gps_info['GPSLatitude'][0][0]/gps_info['GPSLatitude'][0][1], gps_info['GPSLongitude'][0][0]/gps_info['GPSLongitude'][0][1])
 
