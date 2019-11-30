@@ -1,7 +1,7 @@
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 
-def get_gps(image_path):
+def get_exif(image_path):
     exif = Image.open(image_path)._getexif()
 
     if exif:
