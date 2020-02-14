@@ -121,3 +121,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "OurPath/templates"), os.path.join(BASE_DIR, "OurPath/static")]
+
+# media root and url for media upload
+MEDIA_ROOT = BASE_DIR + '/media/'
+
+MEDIA_URL = '/media/'
