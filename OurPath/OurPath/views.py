@@ -18,3 +18,10 @@ def map(request):
     zoom = request.GET["zoom"]
     map = get_map_from_coordinate(latitude, longitude, zoom)
     return render(request, 'map.html', context)
+
+def upload(request):
+    if "picture" in request.FILES:
+        file_upload = request.FILES['picture']
+        fs = FileSystemStorage()
+        file_name = fs.save(file_upload.name, file_upload)
+    return render(request, 'upload.html', context)
