@@ -20,8 +20,7 @@ def map(request):
     return render(request, 'map.html', context)
 
 def upload(request):
-    if "picture" in request.FILES:
-        file_upload = request.FILES['picture']
+    for file_upload in request.FILES.getlist('files'):
         fs = FileSystemStorage()
         file_name = fs.save(file_upload.name, file_upload)
     return render(request, 'upload.html', context)
