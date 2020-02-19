@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import redirect
+from django.core.files.storage import FileSystemStorage
 import os
 import sys
 import json
@@ -20,7 +21,8 @@ def map(request):
     return render(request, 'map.html', context)
 
 def upload(request):
-    for file_upload in request.FILES.getlist('files'):
+    context = {}
+    for file_upload in request.FILES.getlist('pictures'):
         fs = FileSystemStorage()
         file_name = fs.save(file_upload.name, file_upload)
-    return render(request, 'upload.html', context)
+    return render(request, 'index.html', context)
