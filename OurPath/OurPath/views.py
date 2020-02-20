@@ -6,6 +6,7 @@ from django.core.files.storage import FileSystemStorage
 import os
 import sys
 import json
+import uuid
 from . import map
 
 def index(request):
@@ -22,7 +23,10 @@ def map(request):
 
 def upload(request):
     context = {}
+    uploaded_list = []
     for file_upload in request.FILES.getlist('pictures'):
         fs = FileSystemStorage()
-        file_name = fs.save(file_upload.name, file_upload)
+        name = str(uuid.uuid4())
+        uploaded_list.append(name)
+        file_name = fs.save(name, file_upload)
     return render(request, 'index.html', context)
