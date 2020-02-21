@@ -26,7 +26,8 @@ def upload(request):
     uploaded_list = []
     for file_upload in request.FILES.getlist('pictures'):
         fs = FileSystemStorage()
-        name = str(uuid.uuid4())
+        ext = file_upload.name.split(".")[-1]
+        name = str(uuid.uuid4()) + "." + ext
         uploaded_list.append(name)
         file_name = fs.save(name, file_upload)
     return render(request, 'index.html', context)
